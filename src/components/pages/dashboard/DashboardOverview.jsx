@@ -17,11 +17,11 @@ const DashboardOverview = () => {
                             key={index}
                             className="flex items-center justify-between rounded-lg border border-gray-100 bg-gray-50 p-4"
                         >
-                            <span className="font-medium text-gray-600">
+                            <span className="font-medium text-gray-600 text-sm">
                                 {item.title}
                             </span>
 
-                            <span className={`text-lg font-bold ${item.color}`}>
+                            <span className={`text-sm font-bold ${item.color}`}>
                                 {item.value}
                             </span>
                         </div>
@@ -41,7 +41,7 @@ const DashboardOverview = () => {
                                 <i className={`${item.icon} text-xl text-blue-600`} />
                             </div>
 
-                            <h3 className="text-2xl font-bold text-gray-800">
+                            <h3 className="text-xl font-bold text-gray-800">
                                 {item.value}
                             </h3>
 
@@ -59,7 +59,7 @@ const DashboardOverview = () => {
                     {financialProgress.map((item, index) => (
                         <div key={index}>
                             <div className="mb-2 flex items-center justify-between">
-                                <span className="font-medium text-gray-700">
+                                <span className="font-medium text-gray-700 text-sm">
                                     {item.title}
                                 </span>
 
@@ -68,7 +68,7 @@ const DashboardOverview = () => {
                                 </span>
                             </div>
 
-                            <div className="h-3 overflow-hidden rounded-full bg-gray-200">
+                            <div className="h-1 overflow-hidden rounded-full bg-gray-200">
                                 <div
                                     className="h-full rounded-full bg-blue-600 transition-all"
                                     style={{
