@@ -3,159 +3,155 @@
 import clsx from "clsx";
 import React, { useState, forwardRef } from "react";
 
-const Input = forwardRef(({
-  label,
-  labelClass = "",
-  className = "",
-  iconClass,
-  iconEye = false,
-  error,
-  options = [],
-  valueKey,
-  labelKey,
-  labelRender,
-  icon = "",
-  onReset,
-  ...rest
-}, ref) => {
+const Input = forwardRef(
+  (
+    {
+      label,
+      labelClass = "",
+      className = "",
+      iconEye = false,
+      error,
+      options = [],
+      valueKey,
+      labelKey,
+      labelRender,
+      icon = "",
+      onReset,
+      ...rest
+    },
+    ref
+  ) => {
+    const [showPassword, setShowPassword] = useState(false);
 
-  const [showPassword, setShowPassword] = useState(false);
+    const isPassword = rest.type === "password";
+    const isTextarea = rest.type === "textarea";
+    const isSelect = rest.type === "select";
 
-  const isPassword = rest?.type === "password";
+    const inputClass = clsx(
+      "w-full rounded-lg border bg-white text-sm text-slate-700 placeholder:text-slate-400 transition-all duration-200 outline-none",
+      "border-slate-200",
+      "focus:border-[#14ADD6] focus:ring-4 focus:ring-[#14ADD6]/10",
+      icon ? "pl-11" : "pl-4",
+      isTextarea ? "py-3 min-h-36 max-h-60 resize-y" : "py-2.5",
+      (iconEye || onReset) && !isTextarea && "pr-11",
+      error &&
+      "border-red-300 focus:border-red-400 focus:ring-red-100",
+      className
+    );
 
-  return (
-    <div className="flex w-full flex-col gap-1">
-
-      {label && (
-        <label
-          className={clsx(
-            "block text-sm mb-1 text-black font-medium",
-            labelClass
-          )}
-        >
-          {label}
-        </label>
-      )}
-
-      {rest?.type === "textarea" ? (
-
-        <div
-          className={clsx(
-            "flex w-full rounded-lg",
-            error && "border-red-400 ring-2 ring-red-300"
-          )}
-        >
-          {icon && (
-            <i className={`${icon} ri-lg text-gray-400`} />
-          )}
-
-          <textarea
-            className={`w-full min-h-36 max-h-56 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-500 bg-gray-50 text-slate-700 ${className}`}
-            {...rest}
-            value={rest.value ?? ""}
-          />
-        </div>
-
-      ) : rest?.type === "select" ? (
-
-        <div
-          className={clsx(
-            "flex w-full rounded-lg",
-            error && "border-red-400 ring-2 ring-red-300"
-          )}
-        >
-          {icon && (
-            <i className={`${icon} ri-lg text-gray-400`} />
-          )}
-
-          <select
-            {...rest}
-            value={rest.value ?? ""}
-            className="w-full text-sm px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-500 bg-gray-50 text-slate-900 line-clip-1"
-          >
-            {rest?.placeholder && (
-              <option value="">
-                {rest.placeholder}
-              </option>
+    return (
+      <div className="flex w-full flex-col gap-1.5">
+        {label && (
+          <label
+            className={clsx(
+              "text-sm font-medium text-slate-700",
+              labelClass
             )}
+          >
+            {label}
+          </label>
+        )}
 
-            {options.map((opt, idx) => (
-              <option
-                key={idx}
-                value={opt[valueKey] || opt.value || opt}
-              >
-                {labelRender
-                  ? labelRender(opt)
-                  : opt[labelKey] || opt.label || opt}
-              </option>
-            ))}
-          </select>
-        </div>
-
-      ) : (
-
-        <div
-          className={clsx(
-            "relative flex items-center gap-2 w-full rounded-lg",
-            error && "border-red-400 ring-2 ring-red-300"
-          )}
-        >
+        <div className="relative w-full">
           {icon && (
-            <i className={`${icon} ri-lg text-gray-400`} />
+            <i
+              className={clsx(
+                icon,
+                "absolute left-4 top-1/2 -translate-y-1/2 text-lg text-slate-400 pointer-events-none"
+              )}
+            />
           )}
 
-          <input
-            ref={ref}
-            {...rest}
-            value={rest.value ?? ""}
-            type={
-              isPassword
-                ? showPassword
-                  ? "text"
-                  : "password"
-                : rest.type
-            }
-            className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-500 bg-gray-50 text-slate-700 ${className}`}
-          />
-
-          {onReset && rest.value && (
-            <button
-              type="button"
-              onClick={onReset}
-              className="absolute right-10 text-xs text-red-700 hover:text-red-800 cursor-pointer hover:bg-slate-100 h-5 w-5 rounded-full flex items-center justify-center"
+          {isTextarea ? (
+            <textarea
+              ref={ref}
+              {...rest}
+              value={rest.value ?? ""}
+              className={inputClass}
+            />
+          ) : isSelect ? (
+            <select
+              {...rest}
+              value={rest.value ?? ""}
+              className={inputClass}
             >
-              ✕
-            </button>
-          )}
+              {rest.placeholder && (
+                <option value="">
+                  {rest.placeholder}
+                </option>
+              )}
 
-          {iconEye && isPassword && (
-            <button
-              type="button"
-              onClick={() =>
-                setShowPassword(!showPassword)
-              }
-              className="text-gray-500 hover:text-blue-600 cursor-pointer absolute right-3"
-            >
-              <i
-                className={
-                  showPassword
-                    ? "ri-eye-line ri-lg"
-                    : "ri-eye-off-line ri-lg"
+              {options.map((opt, idx) => (
+                <option
+                  key={idx}
+                  value={opt[valueKey] || opt.value || opt}
+                >
+                  {labelRender
+                    ? labelRender(opt)
+                    : opt[labelKey] || opt.label || opt}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <>
+              <input
+                ref={ref}
+                {...rest}
+                value={rest.value ?? ""}
+                type={
+                  isPassword
+                    ? showPassword
+                      ? "text"
+                      : "password"
+                    : rest.type
                 }
+                className={inputClass}
               />
-            </button>
+
+              {onReset && rest.value && (
+                <button
+                  type="button"
+                  onClick={onReset}
+                  className={clsx(
+                    "absolute top-1/2 -translate-y-1/2",
+                    iconEye ? "right-11" : "right-3",
+                    "flex h-6 w-6 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-100 hover:text-red-500"
+                  )}
+                >
+                  <i className="ri-close-line" />
+                </button>
+              )}
+
+              {iconEye && isPassword && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    setShowPassword(!showPassword)
+                  }
+                  className="absolute right-3 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-100 hover:text-[#14ADD6]"
+                >
+                  <i
+                    className={
+                      showPassword
+                        ? "ri-eye-line"
+                        : "ri-eye-off-line"
+                    }
+                  />
+                </button>
+              )}
+            </>
           )}
         </div>
-      )}
 
-      {error && (
-        <span className="text-xs text-red-500">
-          {error}
-        </span>
-      )}
-    </div>
-  );
-});
+        {error && (
+          <span className="text-xs font-medium text-red-500">
+            {error}
+          </span>
+        )}
+      </div>
+    );
+  }
+);
 
 Input.displayName = "Input";
 

@@ -58,7 +58,7 @@ const OverlayModal = ({
       <div
         ref={modalRef}
         onClick={(e) => e.stopPropagation()}
-        className={`relative w-full overflow-auto ${modalClass ?? "max-w-lg"}`}
+        className={`relative w-[95%] overflow-auto ${modalClass ?? "max-w-lg"}`}
       >
         {showCloseIcon && (
           <button
@@ -66,7 +66,7 @@ const OverlayModal = ({
             className="flex justify-center items-center cursor-pointer absolute top-2 right-2 aspect-square h-8 rounded-full p-1 text-[var(--color-gray-600)] hover:bg-gray-100"
             aria-label="Close modal"
           >
-             <i className="ri-close-line text-lg"></i>
+            <i className="ri-close-line text-lg"></i>
           </button>
         )}
         {children}

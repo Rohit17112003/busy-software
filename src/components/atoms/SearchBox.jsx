@@ -57,7 +57,7 @@ const SearchBarComp = ({
 
   return (
     <div
-      className="relative w-full pr-4 ">
+      className="relative w-full">
       {/* Left Icon */}
       {iconLeft && (
         <button
@@ -75,7 +75,7 @@ const SearchBarComp = ({
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
-        className={`line-clamp-1 pr-2 w-full  text-sm py-2.5 text-sm rounded-xl bg-[#F8FAFC]/90 border border-slate-400/25 text-slate-900  focus:ring-2 focus:ring-blue-500/40 placeholder:font-light transition-all outline-none ${iconLeft ? "pl-9" : ""
+        className={`line-clamp-1 pr-2 w-full  text-sm py-2.5 text-sm rounded-lg bg-[#F8FAFC]/90 border border-slate-400/25 text-slate-900  focus:ring-2 focus:ring-blue-500/40 placeholder:font-light transition-all outline-none ${iconLeft ? "pl-9" : ""
           } ${iconRight ? "pr-6" : ""} ${className}`}
       />
 
@@ -84,7 +84,7 @@ const SearchBarComp = ({
         <button
           type="button"
           onClick={clearSearch}
-          className="text-sm absolute top-2 right-6 aspect-square h-6 rounded-full font-light text-gray-500 transition-all duration-100 hover:bg-gray-100 hover:text-gray-700"
+          className="text-sm absolute top-2 right-2 aspect-square h-6 rounded-full font-light text-gray-500 transition-all duration-100 hover:bg-gray-100 hover:text-gray-700"
         >
           <i className="ri-close-line cursor-pointer" />
         </button>

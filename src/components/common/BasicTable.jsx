@@ -28,7 +28,7 @@ const BasicTable = ({
         className={clsx(
           "w-full overflow-x-auto  scroll-container",
           bordered && "create-s-border",
-          wrapperClassName ?? "rounded-lg md:rounded-xl lg:rounded-2xl"
+          wrapperClassName ?? "rounded-lg md:rounded-xl lg:rounded-2xl "
         )}
       >
         <table className="min-w-[900px] w-full border-collapse">
