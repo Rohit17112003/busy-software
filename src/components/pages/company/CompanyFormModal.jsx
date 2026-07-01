@@ -53,7 +53,7 @@ const CompanyFormModal = ({
     <OverlayModal
       isOpen={isOpen}
       onClose={onClose}
-      modalClass="max-w-2xl h-full"
+      modalClass="max-w-2xl h-full mt-4 pb-4"
     >
       <Card
         title={company ? "Edit Company" : "Add Company"}

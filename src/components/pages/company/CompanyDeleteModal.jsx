@@ -2,6 +2,7 @@
 
 import OverlayModal from "@/components/common/OverlayModal";
 import Card from "@/components/molecules/Card";
+import Button from "@/components/common/Button";
 
 const CompanyDeleteModal = ({
     isOpen,
@@ -42,20 +43,14 @@ const CompanyDeleteModal = ({
                         This action cannot be undone.
                     </p>
 
-                    <div className="mt-8 flex w-full gap-3">
-                        <button
-                            onClick={onClose}
-                            className="flex-1 rounded-lg border border-gray-200 py-2.5 text-sm font-medium transition hover:bg-gray-50"
-                        >
+                    <div className="mt-8 flex w-full gap-3 justify-end">
+                        <Button variant="outline" onClick={onClose}>
                             Cancel
-                        </button>
+                        </Button>
 
-                        <button
-                            onClick={handleDelete}
-                            className="flex-1 rounded-lg bg-red-600 py-2.5 text-sm font-medium text-white transition hover:bg-red-700"
-                        >
+                        <Button variant="danger" onClick={handleDelete}>
                             Delete
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </Card>
