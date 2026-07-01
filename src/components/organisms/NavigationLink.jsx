@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const NavigationLink = ({ title, icon, link, children = [] }) => {
+const NavigationLink = ({ title, icon, link, children = [], collapsed }) => {
   const pathname = usePathname();
 
   const hasChildren = children.length > 0;
@@ -30,7 +30,7 @@ const NavigationLink = ({ title, icon, link, children = [] }) => {
       <Link
         href={link || "#"}
         onClick={() => hasChildren && setOpen(!open)}
-        className={`flex items-center gap-3 px-5 py-2.5 text-[13px] rounded-sm transition-all
+        className={`flex items-center gap-3 px-5 py-2.5 text-[13px] rounded-sm transition-all duration-300 group
          ${isActive
             ? "bg-[#e8f1ff] text-[#1677ff] border-l-4 border-[#1677ff]"
             : "text-[#262626] hover:bg-[#f3f4f6]"
@@ -43,13 +43,15 @@ const NavigationLink = ({ title, icon, link, children = [] }) => {
           ></i>
 
           {/* TEXT */}
-          <span className="text-sm truncate ">
-            {title}
-          </span>
+          {!collapsed && (
+            <span className="text-sm truncate ">
+              {title}
+            </span>
+          )}
         </div>
 
         {/* ARROW */}
-        {hasChildren && (
+        {!collapsed && hasChildren && (
           <i
             className={`ri-arrow-down-s-line transition-all duration-300 ${open ? "rotate-180" : "rotate-0"
               }`}

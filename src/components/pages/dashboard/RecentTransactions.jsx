@@ -1,12 +1,8 @@
 import React from "react";
 import Card from "../../molecules/Card";
 import { recentTransactions } from "../../../config/DashboardDummyData";
+import Badge from "../../common/Badge";
 
-const statusClasses = {
-    Posted: "bg-green-100 text-green-700",
-    Pending: "bg-yellow-100 text-yellow-700",
-    Cancelled: "bg-red-100 text-red-700",
-};
 
 const RecentTransactions = () => {
     return (
@@ -73,12 +69,7 @@ const RecentTransactions = () => {
                                 </td>
 
                                 <td className="px-4 py-4 text-center">
-                                    <span
-                                        className={`rounded-full px-3 py-1 text-xs font-semibold ${statusClasses[item.status]
-                                            }`}
-                                    >
-                                        {item.status}
-                                    </span>
+                                    <Badge text={item.status} />
                                 </td>
                             </tr>
                         ))}

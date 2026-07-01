@@ -1,28 +1,14 @@
 "use client";
 import { SideBarData } from "../../config/SideBarData";
 import NavigationLink from "./NavigationLink";
-import { useSelector, useDispatch } from "react-redux";
-import OverlayModal from "../common/OverlayModal";
 import { useState, useEffect } from "react";
-import { LogoutModal } from "../common/LogoutModal";
-import { logout } from "../redux/slice/auth-slice";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 
 const SideBar = ({ isMobile = false, isOpen = true, onClose }) => {
   const [mounted, setMounted] = useState(false);
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  const { user } = useSelector((state) => state.auth);
-
-  const handleLogoutConfirm = async () => {
-    await dispatch(logout());
-    setIsLogoutModalOpen(false);
-    router.replace("/auth/signin");
-  };
+  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -38,12 +24,22 @@ const SideBar = ({ isMobile = false, isOpen = true, onClose }) => {
           className="fixed inset-0 z-40 bg-black/40 lg:hidden "
         />
       )}
+
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-[270px] bg-white text-[#4b5563] transform transition-transform duration-300
+        className={`fixed inset-y-0 left-0 z-50 ${collapsed ? "w-[80px]" : "w-[270px]"} bg-white text-[#4b5563] transform transition-all duration-300
     ${isOpen ? "translate-x-0" : "-translate-x-full"}
     lg:relative lg:translate-x-0
   `}
       >
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="absolute top-4 right-1 w-5 h-5 bg-white rounded-full shadow-sm flex items-center justify-center "
+        >
+          <i
+            className={`ri-arrow-left-s-line text-lg transition-transform ${collapsed ? "rotate-180" : ""
+              }`}
+          />
+        </button>
         <nav className="h-full flex flex-col">
           <div className="absolute -top-11 -right-20 w-34 h-34 rounded-full opacity-10 pointer-events-none circle" ></div>
 
@@ -52,14 +48,17 @@ const SideBar = ({ isMobile = false, isOpen = true, onClose }) => {
             <Link href="/">
               <Image src="/img/logo.png" alt="profile" width={100} height={100} className="w-10 h-10" />
             </Link>
-            <div className="px-4">
-              <h2 className="text-lg font-semibold text-[#14ADD6] text-center">
-                BUSY ERP
-              </h2>
-              <p className="text-xs text-[#262626] text-center">
-                Accounting System
-              </p>
-            </div>
+            {!collapsed && (
+              <div className="px-4">
+                <h2 className="text-lg font-semibold text-[#14ADD6] text-center">
+                  BUSY ERP
+                </h2>
+                <p className="text-xs text-[#262626] text-center">
+                  Accounting System
+                </p>
+              </div>
+            )}
+
 
           </div>
 
@@ -68,13 +67,16 @@ const SideBar = ({ isMobile = false, isOpen = true, onClose }) => {
             {SideBarData.map((section, index) => (
               <div key={index}>
 
-                <p className="px-3 py-2 text-[#14ADD6] uppercase tracking-widest text-[10px] font-semibold">
-                  {section.section}
-                </p>
+
+                {!collapsed && (
+                  <p className="px-3 py-2 text-[#14ADD6] uppercase tracking-widest text-[10px] font-semibold">
+                    {section.section}
+                  </p>
+                )}
 
                 <div className="mt-1 space-y-2 ">
                   {section.items.map((item, i) => (
-                    <NavigationLink key={i} {...item} />
+                    <NavigationLink key={i} {...item} collapsed={collapsed} />
                   ))}
                 </div>
 
@@ -82,37 +84,8 @@ const SideBar = ({ isMobile = false, isOpen = true, onClose }) => {
             ))}
 
           </ul>
-          {/* 
-          <div
-            onClick={() => setIsLogoutModalOpen(true)}
-            className="p-3 cursor-pointer">
-            <div className="rounded-xl px-3 py-2 flex items-center justify-between gap-3 logout" >
-              <div className="flex items-center gap-3">
-                <div className="block logout-bg w-8 h-8 rounded-full flex items-center justify-center  "  >
-                  <span className="text-white text-sm font-bold capitalize">{user?.name?.charAt([0])}</span>
-                </div>
-                <div className="max-w-28">
-                  <p className="text-white text-sm font-medium truncate capitalize line-clamp-1" >{user?.name}</p>
-                  <p className="text-blue-200/60 truncate text-[11px] line-clamp-1">{user?.email}</p>
-                </div>
-              </div>
-              <i className="ri-logout-circle-r-line text-red-100 text-xl"></i>
-            </div>
-          </div> */}
         </nav>
       </aside>
-      {/* Logout Modal */}
-      <OverlayModal
-        onClose={() => setIsLogoutModalOpen(false)}
-        isOpen={isLogoutModalOpen}
-        showCloseIcon={false}
-        modalClass="w-lg"
-      >
-        <LogoutModal
-          onCancel={() => setIsLogoutModalOpen(false)}
-          onConfirm={() => handleLogoutConfirm()}
-        />
-      </OverlayModal>
     </>
   );
 };
