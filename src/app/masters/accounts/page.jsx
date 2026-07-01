@@ -1,5 +1,5 @@
 import MainLayout from "@/components/templates/MainLayout";
-import MainAccountMaster from "@/components/pages/account-master/Index";
+import MainAccountMaster from "@/components/pages/master/account/Index";
 export const metadata = {
     title: "Account Master",
     description: "View and manage account information",

@@ -55,7 +55,7 @@ const Toolbar = ({
 
                 <Button
                     variant="primary"
-                    Icon="add-line"
+                    icon="add-line"
                     onClick={onAdd}
                 >
                     Add Financial Year
