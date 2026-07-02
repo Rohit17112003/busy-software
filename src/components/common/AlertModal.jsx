@@ -41,7 +41,7 @@ export const AlertModal = ({
 }) => {
   return (
     <div
-      className={`mx-auto w-[90%] ${width} rounded-2xl ${bgColor} p-6 shadow-2xl md:w-full md:p-8`}
+      className={`mx-auto w-[90%] ${width} rounded1 ${bgColor} p-6 shadow-2xl md:w-full md:p-8`}
     >
       <div
         className={`mb-5 flex h-16 w-16 items-center justify-center rounded-full ${iconWrapperClass}`}
@@ -68,7 +68,7 @@ export const AlertModal = ({
             <Button
               key={index}
               onClick={btn.onClick}
-              className={`w-full rounded1 transition ${btn.colorClass}`}
+              className={`w-full rounded-lg transition ${btn.colorClass}`}
             >
               {btn.text}
             </Button>
