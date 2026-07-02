@@ -43,6 +43,7 @@ const Modal = ({ isOpen, onClose, selected }) => {
 
                     <Input
                         label="Account Name"
+                        placeholder="Enter account name"
                         value={form.name}
                         onChange={(e) => handleChange("name", e.target.value)}
                     />
@@ -50,6 +51,7 @@ const Modal = ({ isOpen, onClose, selected }) => {
                     <Input
                         type="select"
                         label="Type"
+                        placeholder="Select account type"
                         value={form.type}
                         onChange={(e) => handleChange("type", e.target.value)}
                         options={accountTypes}
@@ -59,18 +61,22 @@ const Modal = ({ isOpen, onClose, selected }) => {
 
                     <Input
                         label="Phone"
+                        placeholder="Enter phone number"
                         value={form.phone}
                         onChange={(e) => handleChange("phone", e.target.value)}
                     />
 
                     <Input
                         label="Email"
+                        type="email"
+                        placeholder="Enter email address"
                         value={form.email}
                         onChange={(e) => handleChange("email", e.target.value)}
                     />
 
                     <Input
                         label="City"
+                        placeholder="Enter city"
                         value={form.city}
                         onChange={(e) => handleChange("city", e.target.value)}
                     />

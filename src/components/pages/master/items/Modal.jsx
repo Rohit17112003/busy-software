@@ -39,6 +39,7 @@ const Modal = ({ isOpen, onClose, selected }) => {
 
                     <Input
                         label="Item Name"
+                        placeholder="Enter item name"
                         value={form.name}
                         onChange={(e) => handleChange("name", e.target.value)}
                     />
@@ -48,6 +49,7 @@ const Modal = ({ isOpen, onClose, selected }) => {
                         <Input
                             type="select"
                             label="Type"
+                            placeholder="Select item type"
                             value={form.type}
                             onChange={(e) => handleChange("type", e.target.value)}
                             options={itemTypes}
@@ -58,6 +60,7 @@ const Modal = ({ isOpen, onClose, selected }) => {
                         <Input
                             type="select"
                             label="Unit"
+                            placeholder="Select unit"
                             value={form.unit}
                             onChange={(e) => handleChange("unit", e.target.value)}
                             options={unitOptions}
@@ -71,12 +74,14 @@ const Modal = ({ isOpen, onClose, selected }) => {
 
                         <Input
                             label="HSN/SAC"
+                            placeholder="Enter HSN/SAC code"
                             value={form.hsn}
                             onChange={(e) => handleChange("hsn", e.target.value)}
                         />
 
                         <Input
                             label="GST %"
+                            placeholder="Enter GST percentage"
                             value={form.gst}
                             onChange={(e) => handleChange("gst", e.target.value)}
                         />
@@ -87,6 +92,7 @@ const Modal = ({ isOpen, onClose, selected }) => {
 
                         <Input
                             label="Opening Stock"
+                            placeholder="Enter opening stock"
                             value={form.openingStock}
                             onChange={(e) =>
                                 handleChange("openingStock", e.target.value)
@@ -95,6 +101,7 @@ const Modal = ({ isOpen, onClose, selected }) => {
 
                         <Input
                             label="Rate"
+                            placeholder="Enter item rate"
                             value={form.rate}
                             onChange={(e) => handleChange("rate", e.target.value)}
                         />
@@ -107,6 +114,7 @@ const Modal = ({ isOpen, onClose, selected }) => {
                         onChange={(e) =>
                             handleChange("stockEnabled", e.target.checked)
                         }
+                        dynamicBg={form.stockEnabled ? "bg-green-500" : "bg-gray-200"}
                     />
 
                     <div className="flex justify-end gap-2 pt-2">
